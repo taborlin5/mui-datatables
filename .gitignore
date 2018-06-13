@@ -29,9 +29,7 @@ node_modules
 .npm
 
 # Build Data
-dist/*
-es/*
-lib/*
+
 
 # Docs
 docs/.next/*

@@ -208,6 +208,7 @@ class MUIDataTable extends React.Component {
 
       for (let rowIndex = 0; rowIndex < data.length; rowIndex++) {
         let value = status === TABLE_LOAD.INITIAL ? data[rowIndex][colIndex] : data[rowIndex].data[colIndex];
+        let row = status === TABLE_LOAD.INITIAL ? data[rowIndex] : data[rowIndex];
 
         if (tableData[rowIndex] === undefined) {
           tableData.push({
@@ -217,7 +218,7 @@ class MUIDataTable extends React.Component {
         }
 
         if (typeof columnOptions.customRender === "function") {
-          const funcResult = columnOptions.customRender(rowIndex, value);
+          const funcResult = columnOptions.customRender(rowIndex, value, null, row);
 
           if (React.isValidElement(funcResult) && funcResult.props.value) {
             value = funcResult.props.value;
@@ -278,7 +279,7 @@ class MUIDataTable extends React.Component {
       let column = row[index];
 
       if (columns[index].customRender) {
-        const funcResult = columns[index].customRender(index, column);
+        const funcResult = columns[index].customRender(index, column, null, row);
         column =
           typeof funcResult === "string"
             ? funcResult
@@ -309,7 +310,7 @@ class MUIDataTable extends React.Component {
       let changedData = cloneDeep(prevState.data);
       let filterData = cloneDeep(prevState.filterData);
 
-      const funcResult = prevState.columns[index].customRender(index, value);
+      const funcResult = prevState.columns[index].customRender(index, value, null, row);
 
       const filterValue =
         React.isValidElement(funcResult) && funcResult.props.value
@@ -342,7 +343,7 @@ class MUIDataTable extends React.Component {
       if (this.isRowDisplayed(columns, value, filterList, searchText)) {
         const columnData = columns.map((column, colIndex) => {
           return typeof column.customRender === "function"
-            ? column.customRender(index, value[colIndex], this.updateDataCol.bind(null, index, colIndex))
+            ? column.customRender(index, value[colIndex], this.updateDataCol.bind(null, index, colIndex), value)
             : value[colIndex];
         });
 

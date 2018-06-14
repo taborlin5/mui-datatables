@@ -90,6 +90,7 @@
     "react-dom": "^16.0.0"
   },
   "dependencies": {
+    "babel-preset-stage-1": "^6.24.1",
     "classnames": "^2.2.5",
     "lodash.clonedeep": "^4.5.0",
     "lodash.debounce": "^4.0.8",

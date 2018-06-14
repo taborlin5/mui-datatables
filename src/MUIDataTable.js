@@ -539,18 +539,15 @@ class MUIDataTable extends React.Component {
     if (type === "head") {
       this.setState(
         prevState => {
-          const { data, page } = prevState;
-          const rowsPerPage = prevState.rowsPerPage ? prevState.rowsPerPage : this.options.rowsPerPage;
-
-          const fromIndex = page === 0 ? 0 : page * rowsPerPage;
-          const toIndex = Math.min(data.length, (page + 1) * rowsPerPage);
+          const { data, displayData, page } = prevState;
+          const fromIndex = 0;
+          const toIndex = displayData.length;
           let selectedRows = Array(toIndex - fromIndex)
             .fill()
             .map((d, i) => ({ index: i + fromIndex }));
 
           let newRows = [...prevState.selectedRows, ...selectedRows];
           let selectedMap = this.buildSelectedMap(newRows);
-
           if (value === false) {
             newRows = prevState.selectedRows.data.filter(({ index }) => !selectedMap[index]);
             selectedMap = this.buildSelectedMap(newRows);
@@ -667,6 +664,7 @@ class MUIDataTable extends React.Component {
           <MUIDataTableToolbarSelect
             options={this.options}
             selectedRows={selectedRows}
+            displayData={displayData}
             onRowsDelete={this.selectRowDelete}
           />
         ) : (

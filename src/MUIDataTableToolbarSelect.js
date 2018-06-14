@@ -46,7 +46,7 @@ class MUIDataTableToolbarSelect extends React.Component {
   };
 
   render() {
-    const { classes, onRowsDelete, selectedRows, options } = this.props;
+    const { classes, onRowsDelete, selectedRows, options, displayData } = this.props;
     const textLabels = options.textLabels.selectedRows;
 
     return (
@@ -57,7 +57,7 @@ class MUIDataTableToolbarSelect extends React.Component {
           </Typography>
         </div>
         {options.customToolbarSelect ? (
-          options.customToolbarSelect(selectedRows)
+          options.customToolbarSelect(selectedRows, displayData)
         ) : (
           <Tooltip title={textLabels.delete}>
             <IconButton className={classes.iconButton} onClick={onRowsDelete} aria-label={textLabels.deleteAria}>

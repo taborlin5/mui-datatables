@@ -42,7 +42,7 @@ const TABLE_LOAD = {
 class MUIDataTable extends React.Component {
   static propTypes = {
     /** Title of the table */
-    title: PropTypes.string.isRequired,
+    title: PropTypes.oneOfType([PropTypes.string, PropTypes.func]).isRequired,
     /** Data used to describe table */
     data: PropTypes.array.isRequired,
     /** Columns used to describe table */
@@ -642,7 +642,7 @@ class MUIDataTable extends React.Component {
   }
 
   render() {
-    const { classes, title } = this.props;
+    const { classes, title, textTitle } = this.props;
     const {
       announceText,
       data,
@@ -685,7 +685,7 @@ class MUIDataTable extends React.Component {
         <MUIDataTableFilterList options={this.options} filterList={filterList} filterUpdate={this.filterUpdate} />
         <div className={this.options.responsive === "scroll" ? classes.responsiveScroll : null}>
           <Table ref={el => (this.tableRef = el)} tabIndex={"0"} role={"grid"}>
-            <caption className={classes.caption}>{title}</caption>
+            <caption className={classes.caption}>{typeof title === "function" ? textTitle : title}</caption>
             <MUIDataTableHead
               columns={columns}
               handleHeadUpdateRef={fn => (this.updateToolbarSelect = fn)}

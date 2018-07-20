@@ -683,7 +683,8 @@ class MUIDataTable extends React.Component {
           />
         )}
         <MUIDataTableFilterList options={this.options} filterList={filterList} filterUpdate={this.filterUpdate} />
-        <div className={this.options.responsive === "scroll" ? classes.responsiveScroll : null}>
+        <div
+          className={"horizontal-scroll-hint " + this.options.responsive === "scroll" ? classes.responsiveScroll : ""}>
           <Table ref={el => (this.tableRef = el)} tabIndex={"0"} role={"grid"}>
             <caption className={classes.caption}>{typeof title === "function" ? textTitle : title}</caption>
             <MUIDataTableHead
